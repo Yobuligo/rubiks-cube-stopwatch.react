@@ -87,6 +87,16 @@ export const LaunchControl: React.FC<ILaunchControlProps> = (props) => {
     }
   };
 
+  const calcAverage = () => {
+    if (measurements.length === 0) {
+      return 0;
+    }
+
+    let sum: number = 0;
+    measurements.forEach((measurement) => (sum += measurement.value));
+    return sum / measurements.length;
+  };
+
   return (
     <div className={styles.launchControl}>
       {running && (
@@ -133,6 +143,12 @@ export const LaunchControl: React.FC<ILaunchControlProps> = (props) => {
             <History measurements={measurements} />
           </div>
           <div className={styles.difference}>{timerToString(timer)}</div>
+          <div className={styles.average}>
+            <span className="material-symbols-outlined" style={{color: "white", marginRight: "0.25rem"}}>
+              avg_time
+            </span>
+            {timerToString(calcAverage())}
+          </div>
         </div>
         <Fingerprint
           fill={getColor()}

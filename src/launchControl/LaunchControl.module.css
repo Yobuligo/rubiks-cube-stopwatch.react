@@ -61,7 +61,15 @@
 }
 
 .difference {
-  height: 30%;
+
   color: white;
   font-size: xx-large;
+}
+
+.average{
+  display: flex;
+  color: white;
+  font-size: x-large;
+  justify-content: center;
+  align-items: center;
 }
