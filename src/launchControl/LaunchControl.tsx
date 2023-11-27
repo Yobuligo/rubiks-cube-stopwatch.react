@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { ReactComponent as Fingerprint } from "../assets/fingerprint.svg";
 import { ILaunchControlProps } from "./ILaunchControlProps";
 import styles from "./LaunchControl.module.css";
 
@@ -11,14 +12,14 @@ enum State {
 export const LaunchControl: React.FC<ILaunchControlProps> = (props) => {
   const [state, setState] = useState<State>(State.DEACTIVATED);
 
-  const getStyle = () => {
+  const getColor = () => {
     switch (state) {
       case State.ACTIVATED:
-        return styles.activated;
+        return "green";
       case State.DEACTIVATED:
-        return styles.deactivated;
+        return "white";
       case State.PREPARATION:
-        return styles.preparation;
+        return "yellow";
       default:
         throw new Error("Invalid state");
     }
@@ -26,27 +27,47 @@ export const LaunchControl: React.FC<ILaunchControlProps> = (props) => {
 
   return (
     <>
-      <button
-        className={`${getStyle()} ${styles.startButton}`}
-        onMouseDown={() => {
-          console.log("Mouse down");
-          setState(State.PREPARATION);
-          props.onBeforeStart();
-        }}
-        onMouseUp={() => {
-          console.log("Mouse up");
-          setState((previous) => {
-            if (previous === State.PREPARATION) {
-              console.log("Activated");
-              props.onStart();
-              return State.ACTIVATED;
-            }
-            return State.DEACTIVATED;
-          });
-        }}
-      >
-        Start
-      </button>
+      <div className={styles.launchControl}>
+        <Fingerprint
+          fill={getColor()}
+          onMouseDown={() => {
+            console.log("Mouse down");
+            setState(State.PREPARATION);
+            props.onBeforeStart();
+          }}
+          onMouseUp={() => {
+            console.log("Mouse up");
+            setState((previous) => {
+              if (previous === State.PREPARATION) {
+                console.log("Activated");
+                props.onStart();
+                return State.ACTIVATED;
+              }
+              return State.DEACTIVATED;
+            });
+          }}
+        />
+
+        <Fingerprint
+          fill={getColor()}
+          onMouseDown={() => {
+            console.log("Mouse down");
+            setState(State.PREPARATION);
+            props.onBeforeStart();
+          }}
+          onMouseUp={() => {
+            console.log("Mouse up");
+            setState((previous) => {
+              if (previous === State.PREPARATION) {
+                console.log("Activated");
+                props.onStart();
+                return State.ACTIVATED;
+              }
+              return State.DEACTIVATED;
+            });
+          }}
+        />
+      </div>
       <button
         className={styles.stopButton}
         onClick={() => {
