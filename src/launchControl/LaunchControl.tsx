@@ -1,5 +1,8 @@
 import { useEffect, useState } from "react";
 import { ReactComponent as Fingerprint } from "../assets/fingerprint.svg";
+import { History } from "../history/History";
+import { IMeasurement } from "../model/IMeasurement";
+import { timerToString } from "../utils/timerToString";
 import { ILaunchControlProps } from "./ILaunchControlProps";
 import styles from "./LaunchControl.module.css";
 
@@ -11,7 +14,7 @@ enum State {
 
 export const LaunchControl: React.FC<ILaunchControlProps> = (props) => {
   const [state, setState] = useState<State>(State.DEACTIVATED);
-
+  const [measurements, setMeasurements] = useState<IMeasurement[]>([]);
   const [running, setRunning] = useState(false);
   const [startTime, setStartTime] = useState<Date>(new Date(0));
   const [stopTime, setStopTime] = useState<Date>(new Date(0));
@@ -51,9 +54,14 @@ export const LaunchControl: React.FC<ILaunchControlProps> = (props) => {
   };
 
   const onStop = () => {
-    setStopTime(new Date());
+    const newStopTime = new Date();
+    setStopTime(newStopTime);
     setRunning(false);
     clearInterval(interval);
+    setMeasurements((previous) => {
+      const difference = newStopTime.getTime() - startTime.getTime();
+      return [...previous, { value: difference }];
+    });
   };
 
   const onUpdate = () => {
@@ -64,10 +72,6 @@ export const LaunchControl: React.FC<ILaunchControlProps> = (props) => {
       onUpdate();
     });
     setInterval(newInterval);
-  };
-
-  const timerToString = () => {
-    return new Date(timer).toISOString().substr(11, 12);
   };
 
   const getColor = () => {
@@ -124,7 +128,10 @@ export const LaunchControl: React.FC<ILaunchControlProps> = (props) => {
             });
           }}
         />
-        <div className={styles.difference}>{timerToString()}</div>
+        <div>
+          <History measurements={measurements} />
+          <div className={styles.difference}>{timerToString(timer)}</div>
+        </div>
         <Fingerprint
           fill={getColor()}
           width={"70%"}
