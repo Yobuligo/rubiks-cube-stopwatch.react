@@ -85,6 +85,23 @@ export const LaunchControl: React.FC<ILaunchControlProps> = (props) => {
 
   return (
     <div className={styles.launchControl}>
+      {running && (
+        <div
+          className={styles.overlay}
+          onClick={() => {
+            setState((previous) => {
+              if (previous === State.ACTIVATED) {
+                console.log("Deactivated");
+                onStop();
+              } else {
+                console.log("Reset");
+                onReset();
+              }
+              return State.DEACTIVATED;
+            });
+          }}
+        />
+      )}
       <div className={styles.fingerPrints}>
         <Fingerprint
           fill={getColor()}
@@ -130,23 +147,6 @@ export const LaunchControl: React.FC<ILaunchControlProps> = (props) => {
           }}
         />
       </div>
-      {/* <button
-        className={styles.stopButton}
-        onClick={() => {
-          setState((previous) => {
-            if (previous === State.ACTIVATED) {
-              console.log("Deactivated");
-              onStop();
-            } else {
-              console.log("Reset");
-              onReset();
-            }
-            return State.DEACTIVATED;
-          });
-        }}
-      >
-        Stop
-      </button> */}
     </div>
   );
 };
