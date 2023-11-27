@@ -60,7 +60,7 @@ export const LaunchControl: React.FC<ILaunchControlProps> = (props) => {
     clearInterval(interval);
     setMeasurements((previous) => {
       const difference = newStopTime.getTime() - startTime.getTime();
-      return [...previous, { value: difference }];
+      return [{ value: difference }, ...previous];
     });
   };
 
