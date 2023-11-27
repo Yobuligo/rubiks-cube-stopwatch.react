@@ -12,6 +12,13 @@
   height: 100%;
 }
 
+.button{
+  width: 70%;
+  height: 70%;
+  border: none;
+  background-color: black;
+}
+
 .history {
   margin-top: 0.5rem;
   height: 40%;

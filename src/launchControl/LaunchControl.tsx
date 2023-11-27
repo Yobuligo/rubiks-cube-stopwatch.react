@@ -117,10 +117,8 @@ export const LaunchControl: React.FC<ILaunchControlProps> = (props) => {
         />
       )}
       <div className={styles.fingerPrints}>
-        <Fingerprint
-          fill={getColor()}
-          width={"70%"}
-          height={"70%"}
+        <button
+          className={styles.button}
           onTouchStart={() => {
             console.log("Mouse down");
             setState(State.PREPARATION);
@@ -153,7 +151,9 @@ export const LaunchControl: React.FC<ILaunchControlProps> = (props) => {
               return State.DEACTIVATED;
             });
           }}
-        />
+        >
+          <Fingerprint fill={getColor()} />
+        </button>
 
         <div className={styles.center}>
           <div className={styles.history}>
@@ -170,11 +170,14 @@ export const LaunchControl: React.FC<ILaunchControlProps> = (props) => {
             {timerToString(calcAverage())}
           </div>
         </div>
-        <Fingerprint
-          fill={getColor()}
-          width={"70%"}
-          height={"70%"}
+        <button
+          className={styles.button}
           onTouchStart={() => {
+            console.log("Mouse down");
+            setState(State.PREPARATION);
+            onBeforeStart();
+          }}
+          onMouseDown={() => {
             console.log("Mouse down");
             setState(State.PREPARATION);
             onBeforeStart();
@@ -190,7 +193,20 @@ export const LaunchControl: React.FC<ILaunchControlProps> = (props) => {
               return State.DEACTIVATED;
             });
           }}
-        />
+          onMouseUp={() => {
+            console.log("Mouse up");
+            setState((previous) => {
+              if (previous === State.PREPARATION) {
+                console.log("Activated");
+                onStart();
+                return State.ACTIVATED;
+              }
+              return State.DEACTIVATED;
+            });
+          }}
+        >
+          <Fingerprint fill={getColor()} />
+        </button>
       </div>
     </div>
   );
