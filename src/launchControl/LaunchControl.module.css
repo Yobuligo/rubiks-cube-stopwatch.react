@@ -1,0 +1,29 @@
+.launchControl {
+  position: absolute;
+  font-size: xx-large;
+  left: 50%;
+  top: 50%;
+}
+
+.startButton {
+  font-size: xx-large;
+  background-color: black;
+}
+
+.stopButton {
+  font-size: xx-large;
+  background-color: black;
+  color: white;
+}
+
+.deactivated {
+  color: white;
+}
+
+.preparation {
+  color: yellow;
+}
+
+.activated {
+  color: rgb(0, 167, 0);
+}
