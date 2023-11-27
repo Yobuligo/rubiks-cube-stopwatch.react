@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">rubiks-cube</string>
+    <string name="title_activity_main">rubiks-cube</string>
+    <string name="package_name">com.yobuligo.rubikscube</string>
+    <string name="custom_url_scheme">com.yobuligo.rubikscube</string>
+</resources>

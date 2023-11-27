@@ -1,0 +1,8 @@
+{
+    "appId": "com.yobuligo.rubikscube",
+    "appName": "rubiks-cube",
+    "bundledWebRuntime": false,
+    "npmClient": "npm",
+    "webDir": "build",
+    "cordova": {}
+   }

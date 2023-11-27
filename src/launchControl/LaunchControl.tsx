@@ -121,10 +121,26 @@ export const LaunchControl: React.FC<ILaunchControlProps> = (props) => {
           fill={getColor()}
           width={"70%"}
           height={"70%"}
+          onTouchStart={() => {
+            console.log("Mouse down");
+            setState(State.PREPARATION);
+            onBeforeStart();
+          }}
           onMouseDown={() => {
             console.log("Mouse down");
             setState(State.PREPARATION);
             onBeforeStart();
+          }}
+          onTouchEnd={() => {
+            console.log("Mouse up");
+            setState((previous) => {
+              if (previous === State.PREPARATION) {
+                console.log("Activated");
+                onStart();
+                return State.ACTIVATED;
+              }
+              return State.DEACTIVATED;
+            });
           }}
           onMouseUp={() => {
             console.log("Mouse up");
@@ -138,13 +154,17 @@ export const LaunchControl: React.FC<ILaunchControlProps> = (props) => {
             });
           }}
         />
+
         <div className={styles.center}>
           <div className={styles.history}>
             <History measurements={measurements} />
           </div>
           <div className={styles.difference}>{timerToString(timer)}</div>
           <div className={styles.average}>
-            <span className="material-symbols-outlined" style={{color: "white", marginRight: "0.25rem"}}>
+            <span
+              className="material-symbols-outlined"
+              style={{ color: "white", marginRight: "0.25rem" }}
+            >
               avg_time
             </span>
             {timerToString(calcAverage())}
@@ -154,12 +174,12 @@ export const LaunchControl: React.FC<ILaunchControlProps> = (props) => {
           fill={getColor()}
           width={"70%"}
           height={"70%"}
-          onMouseDown={() => {
+          onTouchStart={() => {
             console.log("Mouse down");
             setState(State.PREPARATION);
             onBeforeStart();
           }}
-          onMouseUp={() => {
+          onTouchEnd={() => {
             console.log("Mouse up");
             setState((previous) => {
               if (previous === State.PREPARATION) {

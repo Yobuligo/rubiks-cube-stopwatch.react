@@ -6,7 +6,7 @@ import { IHistoryProps } from "./IHistoryProps";
 export const History: React.FC<IHistoryProps> = (props) => {
   const getItems = () => {
     const measurements: IMeasurement[] = [];
-    for (let i = 0; i < 10; i++) {
+    for (let i = 0; i < 8; i++) {
       const measurement = props.measurements.at(i);
       if (measurement) {
         measurements.push(measurement);

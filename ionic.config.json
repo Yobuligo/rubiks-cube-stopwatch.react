@@ -1,0 +1,7 @@
+{
+  "name": "rubiks-cube",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "react"
+}
