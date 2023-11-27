@@ -4,7 +4,6 @@ import styles from "./Timer.module.css";
 
 export const Timer: React.FC = () => {
   const [running, setRunning] = useState(false);
-
   const [startTime, setStartTime] = useState<Date>(new Date(0));
   const [stopTime, setStopTime] = useState<Date>(new Date(0));
   const [timer, setTimer] = useState(stopTime.getTime() - startTime.getTime());
@@ -22,12 +21,19 @@ export const Timer: React.FC = () => {
     }
   }, [running, startTime, stopTime, timer]);
 
+  const onBeforeStart = () => {
+    if (!running) {
+      onReset();
+    }
+  };
+
   const onReset = () => {
     setStartTime(new Date(0));
     setStopTime(new Date(0));
   };
 
   const onStart = () => {
+    clearInterval(interval);
     setRunning(true);
     const newStartTime = new Date();
     setStartTime(newStartTime);
@@ -57,7 +63,12 @@ export const Timer: React.FC = () => {
 
   return (
     <div className={styles.timer}>
-      <LaunchControl onReset={onReset} onStart={onStart} onStop={onStop} />
+      <LaunchControl
+        onBeforeStart={onBeforeStart}
+        onReset={onReset}
+        onStart={onStart}
+        onStop={onStop}
+      />
       <div className={styles.difference}>{timerToString()}</div>
     </div>
   );

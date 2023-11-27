@@ -31,6 +31,7 @@ export const LaunchControl: React.FC<ILaunchControlProps> = (props) => {
         onMouseDown={() => {
           console.log("Mouse down");
           setState(State.PREPARATION);
+          props.onBeforeStart();
         }}
         onMouseUp={() => {
           console.log("Mouse up");
