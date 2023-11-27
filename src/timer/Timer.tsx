@@ -8,6 +8,7 @@ export const Timer: React.FC = () => {
   const [startTime, setStartTime] = useState<Date>(new Date(0));
   const [stopTime, setStopTime] = useState<Date>(new Date(0));
   const [timer, setTimer] = useState(stopTime.getTime() - startTime.getTime());
+  const [interval, setInterval] = useState<NodeJS.Timeout>();
 
   useEffect(() => {
     console.log("useEffect");
@@ -31,24 +32,23 @@ export const Timer: React.FC = () => {
     const newStartTime = new Date();
     setStartTime(newStartTime);
     setStopTime(newStartTime);
-    onUpdateTimer();
+    onUpdate();
   };
 
   const onStop = () => {
     setStopTime(new Date());
     setRunning(false);
+    clearInterval(interval);
   };
 
-  const onUpdateTimer = () => {
-    if (running === true) {
+  const onUpdate = () => {
+    const newInterval = setTimeout(() => {
       const currentTime = new Date();
       const difference = currentTime.getTime() - startTime.getTime();
       setTimer(difference);
-      onUpdateTimer();
-    } else {
-      const difference = stopTime.getTime() - startTime.getTime();
-      setTimer(difference);
-    }
+      onUpdate();
+    });
+    setInterval(newInterval);
   };
 
   const timerToString = () => {
