@@ -128,8 +128,10 @@ export const LaunchControl: React.FC<ILaunchControlProps> = (props) => {
             });
           }}
         />
-        <div>
-          <History measurements={measurements} />
+        <div className={styles.center}>
+          <div className={styles.history}>
+            <History measurements={measurements} />
+          </div>
           <div className={styles.difference}>{timerToString(timer)}</div>
         </div>
         <Fingerprint
