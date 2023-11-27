@@ -1,6 +1,20 @@
 .launchControl{
+  position: absolute;
+  font-size: xx-large;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  height: 100%;
+}
+
+.fingerPrints{
   display: flex;
   flex-direction: row;
+  width: 100%;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
 }
 
 .startButton {
@@ -24,4 +38,9 @@
 
 .activated {
   color: rgb(0, 167, 0);
+}
+
+.difference {
+  color: white;
+  font-size: xx-large;
 }

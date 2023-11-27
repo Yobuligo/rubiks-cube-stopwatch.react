@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { LaunchControl } from "../launchControl/LaunchControl";
 import styles from "./Timer.module.css";
 
 export const Timer: React.FC = () => {
@@ -63,12 +62,6 @@ export const Timer: React.FC = () => {
 
   return (
     <div className={styles.timer}>
-      <LaunchControl
-        onBeforeStart={onBeforeStart}
-        onReset={onReset}
-        onStart={onStart}
-        onStop={onStop}
-      />
       <div className={styles.difference}>{timerToString()}</div>
     </div>
   );

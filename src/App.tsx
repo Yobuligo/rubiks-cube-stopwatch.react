@@ -1,8 +1,8 @@
 import "./App.module.css";
-import { Timer } from "./timer/Timer";
+import { LaunchControl } from "./launchControl/LaunchControl";
 
 function App() {
-  return <Timer />;
+  return <LaunchControl />;
 }
 
 export default App;
