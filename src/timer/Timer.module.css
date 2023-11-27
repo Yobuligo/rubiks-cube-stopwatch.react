@@ -1,0 +1,10 @@
+.timer {
+  position: absolute;
+  font-size: xx-large;
+  left: 50%;
+  top: 50%;
+}
+
+.difference {
+  color: white;
+}

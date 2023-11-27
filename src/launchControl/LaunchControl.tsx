@@ -10,7 +10,6 @@ enum State {
 
 export const LaunchControl: React.FC<ILaunchControlProps> = (props) => {
   const [state, setState] = useState<State>(State.DEACTIVATED);
-  const [running, setRunning] = useState(false);
 
   const getStyle = () => {
     switch (state) {
@@ -26,7 +25,7 @@ export const LaunchControl: React.FC<ILaunchControlProps> = (props) => {
   };
 
   return (
-    <div className={styles.launchControl}>
+    <>
       <button
         className={`${getStyle()} ${styles.startButton}`}
         onMouseDown={() => {
@@ -37,7 +36,8 @@ export const LaunchControl: React.FC<ILaunchControlProps> = (props) => {
           console.log("Mouse up");
           setState((previous) => {
             if (previous === State.PREPARATION) {
-              setRunning(true);
+              console.log("Activated");
+              props.onStart();
               return State.ACTIVATED;
             }
             return State.DEACTIVATED;
@@ -49,13 +49,20 @@ export const LaunchControl: React.FC<ILaunchControlProps> = (props) => {
       <button
         className={styles.stopButton}
         onClick={() => {
-          setRunning(false);
-          setState(State.DEACTIVATED);
-          console.log("Deactivated");
+          setState((previous) => {
+            if (previous === State.ACTIVATED) {
+              console.log("Deactivated");
+              props.onStop();
+            } else {
+              console.log("Reset");
+              props.onReset();
+            }
+            return State.DEACTIVATED;
+          });
         }}
       >
         Stop
       </button>
-    </div>
+    </>
   );
 };
